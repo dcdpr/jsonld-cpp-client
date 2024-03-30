@@ -2,15 +2,15 @@
 // used. Not yet meant to be the very best example.
 
 // This application reads a jsonld file and, if possible, outputs
-// a normalized RDF dataset in NQuads format. This can then be piped
-// to a hashing utility like sha256sum and used to compare with RDF
-// generated from other documents.
+// an RDF dataset in NQuads format.
 
 // Usage: jsonld2rdf <filename>
 
 #include <jsonld-cpp/FileLoader.h>
 #include <jsonld-cpp/JsonLdOptions.h>
-#include <jsonld-cpp/RDFCanonicalizationProcessor.h>
+#include <jsonld-cpp/JsonLdProcessor.h>
+#include <jsonld-cpp/RDFDataset.h>
+#include <jsonld-cpp/NQuadsSerialization.h>
 #include <iostream>
 #include <fstream>
 
@@ -46,7 +46,7 @@ int main (int argc, char *argv[]) {
     JsonLdOptions opts(fileUri);
     opts.setDocumentLoader(std::move(loader));
 
-    std::string nquads = RDFCanonicalizationProcessor::canonicalize(fileUri, opts);
+    std::string nquads = NQuadsSerialization::toNQuads(JsonLdProcessor::toRDF(fileUri, opts));
 
     std::cout << nquads;
     std::flush(std::cout);

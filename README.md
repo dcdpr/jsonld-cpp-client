@@ -115,7 +115,7 @@ There are two command line applications included in jsonld-cpp-client and a coup
 
 ### jsonld2rdf
 
-`jsonld2rdf` can convert a JSON-LD document into normalized RDF data in NQuads format. This program first runs the ['expansion'](https://www.w3.org/TR/json-ld-api/#expansion) algorithm, then converts the JSON-LD to RDF using ['RDF serialization](https://www.w3.org/TR/json-ld-api/#rdf-serialization-deserialization), and will finally ['normalize'](https://json-ld.github.io/rdf-dataset-canonicalization/spec/index.html#canonicalization) (or 'canonicalize') the result. The normalized RDF data will be output to the terminal.
+`jsonld2rdf` can convert a JSON-LD document into RDF data in NQuads format. This program first runs the ['expansion'](https://www.w3.org/TR/json-ld-api/#expansion) algorithm, then converts the JSON-LD to RDF using ['RDF serialization](https://www.w3.org/TR/json-ld-api/#rdf-serialization-deserialization). The RDF data will be output to the terminal.
 
 ```shell
 > ./jsonld2rdf ../samples/ex01a.jsonld
@@ -127,15 +127,3 @@ There are two command line applications included in jsonld-cpp-client and a coup
 <http://example.com/people/gregg> <http://xmlns.com/foaf/0.1/name> "Gregg Kellogg" .
 <http://example.com/people/markus> <http://xmlns.com/foaf/0.1/name> "Markus Lanthaler" .
 ```
-
-
-One could use `jsonld2rdf` with the two sample files included to show how the normalized RDF can be hashed to prove that the two documents are equivalent:
-
-```shell
-> ./jsonld2rdf ../samples/ex01a.jsonld | shasum -a 256
-cb92d57d8b7abf09e4642338049bd9ee91a0ee0fe327e0a6061a8bbc2f4314bf  -
-> ./jsonld2rdf ../samples/ex01b.jsonld | shasum -a 256
-cb92d57d8b7abf09e4642338049bd9ee91a0ee0fe327e0a6061a8bbc2f4314bf  -
-```
-
-
